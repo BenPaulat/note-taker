@@ -1,0 +1,1 @@
+// under class - functions to read, write, getnotes, addnotes, remove notes. Bring in FS from Express.
