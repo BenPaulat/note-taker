@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/BenPaulat/note-taker#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "router": "^1.3.6"
+    "express": "^4.17.1"
   }
 }

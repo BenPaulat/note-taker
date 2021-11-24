@@ -5,15 +5,27 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const path = require('path');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
+const router = require('express').Router();
 
-app.get('/api', (req, res) => {
+
+// Get existing notes from database
+router.get('/notes', (req, res) => {
+    let notes = fs.readFileSync('./db/db.json', 'utf-8');
+    notes = JSON.parse(notes);
+    res.json(notes);
+});
+
+// Post new notes to database
+router.post('/notes', (req, res) => {
     console.log()
 });
 
-app.post('api/save', (req, res) => {
+// Delete notes within database by id
+router.delete('notes/:id', (req, res) => {
     console.log()
 });
 
-app.delete('api/delete', (req, res) => {
-    console.log()
-});
+module.exports = router
