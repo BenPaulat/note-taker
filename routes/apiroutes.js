@@ -1,26 +1,24 @@
 // app.get (to get notes from db), app.post (to add notes to db, use fs to push to local html), app.delete (to remove notes from db, use fs to delete from index)
 // build out funcitons in store.js file and reference in API routes below
-
-const express = require('express');
-const app = express();
-const fs = require('fs');
-const path = require('path');
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static('public'));
 const router = require('express').Router();
-
+const Store = require('../db/store');
 
 // Get existing notes from database
 router.get('/notes', (req, res) => {
-    let notes = fs.readFileSync('./db/db.json', 'utf-8');
-    notes = JSON.parse(notes);
-    res.json(notes);
+    Store.getNotes()
+    .then((notes) => {
+        return res.json(notes);
+    })
+    .catch((err) => {
+        res.status(400).json(err);
+    })
 });
 
 // Post new notes to database
 router.post('/notes', (req, res) => {
-    console.log()
+    Store.addNote(req.body)
+    .then((note) => res.json(note))
+    .catch((err) => res.status(400).json(err));
 });
 
 // Delete notes within database by id
