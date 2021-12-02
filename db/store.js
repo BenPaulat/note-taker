@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const util = require('util');
-const uuid = require('uuid'); // read up on uuid in NPM
+const { v4: uuidv4 } = require('uuid'); // read up on uuid in NPM
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile); // read up on Promisefy
 
@@ -32,7 +32,7 @@ class Store {
         if (!title || !text) {
             throw new Error('Title and text are required, please re-enter the note!');
         }
-        let noteObject = {title, text, id:uuid()}
+        let noteObject = {title, text, id:uuidv4()}
         return this.getNotes()
         .then((notes) => [...notes, noteObject])
         .then((updateNotes) => this.writeNotes(updateNotes))

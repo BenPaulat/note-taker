@@ -22,8 +22,10 @@ router.post('/notes', (req, res) => {
 });
 
 // Delete notes within database by id
-router.delete('notes/:id', (req, res) => {
-    console.log()
+router.delete('/notes/:id', (req, res) => {
+    Store.deleteNote(req.params.id)
+    .then(() => res.json({ ok: true })) // read up on ok: true
+    .catch((err) => res.status(400).json(err));
 });
 
 module.exports = router
